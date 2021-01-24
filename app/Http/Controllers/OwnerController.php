@@ -18,9 +18,9 @@ class OwnerController extends Controller
         return Owner::paginate(10);
     }
 
-    public function find($phone)
+    public function find(Request $request)
     {
-        return new OwnerResource(Owner::where('phone', $phone)->firstOrFail());
+        return new OwnerResource(Owner::where('phone', $request->input('phone'))->firstOrFail());
     }
 
     /**

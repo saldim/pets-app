@@ -13,7 +13,9 @@
 </head>
 <body>
 <div id="app">
-    <app></app>
+<router-link to="/foo">Перейти к Foo</router-link>
+<router-link to="/bar">Перейти к Bar</router-link>
+    <router-view></router-view>
 </div>
 
 <script src="{{ mix('js/app.js') }}"></script>

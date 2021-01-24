@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('pet', \App\Http\Controllers\PetController::class);
 Route::apiResource('owner', \App\Http\Controllers\OwnerController::class);
 
-Route::get('owner/find/{phone}', '\App\Http\Controllers\OwnerController@find');
+Route::post('owner/find', '\App\Http\Controllers\OwnerController@find');
 
 //Route::get('/pets', 'App\Http\Controllers\PetController@index');
 //Route::get('/pets/{id}', 'App\Http\Controllers\PetController@view');

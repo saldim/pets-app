@@ -1,6 +1,6 @@
 <template>
     <div>
-        {{todo}}
+        {{items}}
     </div>
 </template>
 <script>
@@ -12,11 +12,11 @@
         computed: {},
         data() {
             return {
-                todo: '',
+                items: '',
             }
         },
         async mounted() {
-            this.todo = await axios.get('https://jsonplaceholder.typicode.com/todos/1');
+            this.items = await axios.get('/api/pet');
         }
     };
 </script>
