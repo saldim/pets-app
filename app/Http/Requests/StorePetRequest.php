@@ -17,16 +17,15 @@ class StorePetRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Правила валидации запроса на добавление питомца.
      *
      * @return array
      */
     public function rules()
     {
         return [
-            //'owner_id' => 'required|exists:owners,id',
             'full_name' => 'required|max:255',
-            'phone' => 'required|max:20',
+            'phone' => 'required|integer',
             'breed' => 'required|max:255',
             'nickname' => 'required|max:255',
             'age' => 'required|integer',

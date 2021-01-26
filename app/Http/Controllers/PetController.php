@@ -11,19 +11,19 @@ use Illuminate\Http\Request;
 class PetController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Возвращает список питомцев для главной страницы
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return Pet::paginate(10);
+        return PetResource::collection(Pet::paginate(10));
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Добавляет нового питомца
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\StorePetRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(StorePetRequest $request)
@@ -38,11 +38,24 @@ class PetController extends Controller
             $validated['owner_id'] = $newOwner->id;
             return Pet::create($validated);
         }
-
     }
 
     /**
-     * Display the specified resource.
+     * Поиск питомцев по номеру хозяина
+     * @param \Illuminate\Http\Request
+     * @return \Illuminate\Http\Response
+     */
+    public function find(Request $request)
+    {
+        return PetResource::collection(
+            Pet::where('owners.phone', $request->input('phone'))
+            ->leftJoin('owners', 'pets.owner_id', '=', 'owners.id')->paginate(10)
+           // ->get()
+        );
+    }
+
+    /**
+     * Возвращает конкретного питомца
      *
      * @param \App\Models\Pet $pet
      * @return \Illuminate\Http\Response
@@ -50,28 +63,5 @@ class PetController extends Controller
     public function show(Pet $pet)
     {
         return new PetResource($pet);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Pet $pet
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Pet $pet)
-    {
-
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Pet $pet
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Pet $pet)
-    {
-        //
     }
 }

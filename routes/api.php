@@ -22,6 +22,7 @@ Route::apiResource('pet', \App\Http\Controllers\PetController::class);
 Route::apiResource('owner', \App\Http\Controllers\OwnerController::class);
 
 Route::post('owner/find', '\App\Http\Controllers\OwnerController@find');
+Route::post('pet/find', '\App\Http\Controllers\PetController@find');
 
 //Route::get('/pets', 'App\Http\Controllers\PetController@index');
 //Route::get('/pets/{id}', 'App\Http\Controllers\PetController@view');

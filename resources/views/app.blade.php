@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -11,13 +12,13 @@
 
     <title>{{env('APP_NAME')}}</title>
 </head>
-<body>
-<div id="app">
-<router-link to="/foo">Перейти к Foo</router-link>
-<router-link to="/bar">Перейти к Bar</router-link>
-    <router-view></router-view>
-</div>
 
-<script src="{{ mix('js/app.js') }}"></script>
+<body>
+    <div id="app">
+    <App/>
+    </div>
+
+    <script src="{{ mix('js/app.js') }}"></script>
 </body>
+
 </html>
