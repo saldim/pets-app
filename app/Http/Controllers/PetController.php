@@ -30,14 +30,8 @@ class PetController extends Controller
     {
         $validated = $request->validated();
         $existOwner = Owner::where('phone', $validated['phone'])->first();
-        if ($existOwner) {
-            $validated['owner_id'] = $existOwner->id;
-            return Pet::create($validated);
-        } else {
-            $newOwner = Owner::create($validated);
-            $validated['owner_id'] = $newOwner->id;
-            return Pet::create($validated);
-        }
+        $validated['owner_id'] = $existOwner ? $existOwner->id : Owner::create($validated)->id;
+        return Pet::create($validated);
     }
 
     /**
@@ -48,9 +42,10 @@ class PetController extends Controller
     public function find(Request $request)
     {
         return PetResource::collection(
-            Pet::where('owners.phone', $request->input('phone'))
-            ->leftJoin('owners', 'pets.owner_id', '=', 'owners.id')->paginate(10)
-           // ->get()
+            Owner::where('phone', $request->input('phone'))
+            ->firstOrFail()
+            ->pets()
+            ->paginate(10)
         );
     }
 
